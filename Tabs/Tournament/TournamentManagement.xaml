@@ -1,0 +1,40 @@
+﻿<Window x:Class="Arasoi_MINITCC.Tabs.Tournament.TournamentManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arasoi_MINITCC.Tabs.Tournament"
+        mc:Ignorable="d"
+        Title="TournamentManagement" Height="600" Width="600" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid Margin="100, 100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                <Label Content="Código do torneio:"/>
+                <TextBox x:Name="CodeTB" Text=""/>
+                <Label Content="Nome do torneio:"/>
+                <TextBox x:Name="NameTB" Text=""/>
+                <Label Content="Filiação"/>
+                <TextBox x:Name="FiliationTB" Text=""/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Data de inicio:" Width="200"/>
+                    <Label Content="Data de fim:" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <DatePicker x:Name="DataPickerStart" Width="200"/>
+                    <DatePicker x:Name="DataPickerEnd" Width="200"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Grid.Row="1" Grid.Column="0" Content="Aplicar" Margin="5" Click="Apply_Click"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="Sair" Margin="5" Click="Close_Click"/>
+        </Grid>
+    </Grid>
+</Window>

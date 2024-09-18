@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arasoi_MINITCC.Tabs.Tournament;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,17 @@ using System.Windows.Shapes;
 
 namespace Arasoi_MINITCC
 {
-    /// <summary>
-    /// Interação lógica para MainWindow.xam
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            AddTournament addTournament = new AddTournament();
+            addTournament.Show();
         }
     }
 }

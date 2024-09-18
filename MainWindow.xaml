@@ -3,10 +3,42 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Arasoi_MINITCC"
+        xmlns:local="clr-namespace:Arasoi_MINITCC.Tabs.Tournament"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="720" Width="1350" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <local:TournamentViewModel />
+    </Window.DataContext>
+
     <Grid>
-        
+        <TabControl>
+            <!-- Tab to manage tournaments -->
+            <TabItem Header="Campeonatos">
+                <Grid>
+                    <ListBox Margin="100, 50" ItemsSource="{Binding TournamentCards}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1000"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel>
+                                        <Label Content="{Binding Name}" Grid.Column="0" FontSize="20"/>
+                                        <Label Content="{Binding Filiation}" Grid.Column="0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="5">
+                                        <Button Content="Deletar" Command="{Binding DeleteCommand}" Width="50"/>
+                                        <Button Content="Editar" Command="{Binding EditCommand}" Width="50"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Content="+" Margin="1244,576,60,60" Click="Add_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
