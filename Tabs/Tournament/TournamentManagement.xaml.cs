@@ -42,9 +42,9 @@ namespace Arasoi_MINITCC.Tabs.Tournament
         // Check if all fields of the form are filled in (incomplete function)
         public bool Check()
         {
-            return CodeTB.Text.Trim() != ""
-                && NameTB.Text.Trim() != ""
-                && FiliationTB.Text.Trim() != ""
+            return string.IsNullOrWhiteSpace(CodeTB.Text)
+                && string.IsNullOrWhiteSpace(NameTB.Text)
+                && string.IsNullOrWhiteSpace(FiliationTB.Text)
                 && DataPickerStart.SelectedDate.HasValue
                 && DataPickerEnd.SelectedDate.HasValue;
         }
@@ -58,24 +58,34 @@ namespace Arasoi_MINITCC.Tabs.Tournament
         {
             if (Check())
             {
-                using (MySqlConnection connection = ConnectionFactory.GetConnection())
+                try
                 {
-                    connection.Open();
-                    string command = "INSERT INTO campeonato (cod_campeonato, nome_campeonato, filiacao, data_inicio, data_fim) " +
-                        "VALUES (@cod_campeonato, @nome_campeonato, @filiacao, @data_inicio, @data_fim)";
-                    MySqlCommand commandINSERT = new MySqlCommand(command, connection);
+                    using (MySqlConnection connection = ConnectionFactory.GetConnection())
+                    {
+                        connection.Open();
+                        string command = "INSERT INTO campeonato (cod_campeonato, nome_campeonato, filiacao, data_inicio, data_fim) " +
+                            "VALUES (@cod_campeonato, @nome_campeonato, @filiacao, @data_inicio, @data_fim)";
+                        MySqlCommand commandINSERT = new MySqlCommand(command, connection);
 
-                    commandINSERT.Parameters.AddWithValue("@cod_campeonato", CodeTB.Text);
-                    commandINSERT.Parameters.AddWithValue("@nome_campeonato", NameTB.Text);
-                    commandINSERT.Parameters.AddWithValue("@filiacao", FiliationTB.Text);
-                    commandINSERT.Parameters.AddWithValue("@data_inicio", DataPickerStart.SelectedDate.Value.ToString("yyyy-MM-dd"));
-                    commandINSERT.Parameters.AddWithValue("@data_fim", DataPickerEnd.SelectedDate.Value.ToString("yyyy-MM-dd"));
+                        commandINSERT.Parameters.AddWithValue("@cod_campeonato", CodeTB.Text);
+                        commandINSERT.Parameters.AddWithValue("@nome_campeonato", NameTB.Text);
+                        commandINSERT.Parameters.AddWithValue("@filiacao", FiliationTB.Text);
+                        commandINSERT.Parameters.AddWithValue("@data_inicio", DataPickerStart.SelectedDate.Value.ToString("yyyy-MM-dd"));
+                        commandINSERT.Parameters.AddWithValue("@data_fim", DataPickerEnd.SelectedDate.Value.ToString("yyyy-MM-dd"));
 
-                    commandINSERT.ExecuteNonQuery();
-                    MessageBox.Show("Registrado!");
+                        commandINSERT.ExecuteNonQuery();
+                        MessageBox.Show("Registrado!");
+                    }
+                    var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
+                    viewModel.LoadView();
                 }
-                var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
-                viewModel.LoadView();
+                catch (Exception ex) 
+                { 
+                    MessageBox.Show($"Erro ao adicionar campeonato: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            } else
+            {
+                MessageBox.Show("Preencha todos os campos", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }
@@ -101,25 +111,31 @@ namespace Arasoi_MINITCC.Tabs.Tournament
         {
             if (Check()) 
             { 
-                using (MySqlConnection connection = ConnectionFactory.GetConnection())
+                try
                 {
-                    connection.Open();
-                    string command = "UPDATE campeonato " + 
-                        "SET nome_campeonato = @nome_campeonato, filiacao = @filiacao, data_inicio = @data_inicio, data_fim = @data_fim " +
-                        "WHERE cod_campeonato = @cod_campeonato";
-                    MySqlCommand commandUPDATE = new MySqlCommand(command, connection);
+                    using (MySqlConnection connection = ConnectionFactory.GetConnection())
+                    {
+                        connection.Open();
+                        string command = "UPDATE campeonato " +
+                            "SET nome_campeonato = @nome_campeonato, filiacao = @filiacao, data_inicio = @data_inicio, data_fim = @data_fim " +
+                            "WHERE cod_campeonato = @cod_campeonato";
+                        MySqlCommand commandUPDATE = new MySqlCommand(command, connection);
 
-                    commandUPDATE.Parameters.AddWithValue("@cod_campeonato", CodeTB.Text);
-                    commandUPDATE.Parameters.AddWithValue("@nome_campeonato", NameTB.Text);
-                    commandUPDATE.Parameters.AddWithValue("@filiacao", FiliationTB.Text);
-                    commandUPDATE.Parameters.AddWithValue("@data_inicio", DataPickerStart.SelectedDate.Value.ToString("yyyy-MM-dd"));
-                    commandUPDATE.Parameters.AddWithValue("@data_fim", DataPickerEnd.SelectedDate.Value.ToString("yyyy-MM-dd"));
+                        commandUPDATE.Parameters.AddWithValue("@cod_campeonato", CodeTB.Text);
+                        commandUPDATE.Parameters.AddWithValue("@nome_campeonato", NameTB.Text);
+                        commandUPDATE.Parameters.AddWithValue("@filiacao", FiliationTB.Text);
+                        commandUPDATE.Parameters.AddWithValue("@data_inicio", DataPickerStart.SelectedDate.Value.ToString("yyyy-MM-dd"));
+                        commandUPDATE.Parameters.AddWithValue("@data_fim", DataPickerEnd.SelectedDate.Value.ToString("yyyy-MM-dd"));
 
-                    commandUPDATE.ExecuteNonQuery();
-                    MessageBox.Show("Mudado!");
+                        commandUPDATE.ExecuteNonQuery();
+                        MessageBox.Show("Mudado!");
+                    }
+                    var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
+                    viewModel.LoadView();
+                } catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao editar informações do torneio: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
-                viewModel.LoadView();
             }
         }
     }

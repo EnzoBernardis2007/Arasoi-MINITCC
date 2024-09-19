@@ -105,18 +105,25 @@ namespace Arasoi_MINITCC.Tabs.Tournament
         // deletes a record in the database that has the same Id
         public void Delete()
         {
-            using (MySqlConnection connection = ConnectionFactory.GetConnection()) 
+            try
             {
-                connection.Open();
-                string command = "DELETE FROM campeonato WHERE cod_campeonato = @cod_campeonato";
-                MySqlCommand commandDELETE = new MySqlCommand(command, connection);
+                using (MySqlConnection connection = ConnectionFactory.GetConnection())
+                {
+                    connection.Open();
+                    string command = "DELETE FROM campeonato WHERE cod_campeonato = @cod_campeonato";
+                    MySqlCommand commandDELETE = new MySqlCommand(command, connection);
 
-                commandDELETE.Parameters.AddWithValue("@cod_campeonato", Id);
+                    commandDELETE.Parameters.AddWithValue("@cod_campeonato", Id);
 
-                commandDELETE.ExecuteNonQuery();
+                    commandDELETE.ExecuteNonQuery();
+                }
+                var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
+                viewModel.LoadView();
             }
-            var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
-            viewModel.LoadView();
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Erro ao deletar um campeonato: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         // Opens a window to edit the information for the respective record

@@ -42,11 +42,14 @@
             </TabItem>
             <!-- Tab to add athlete -->
             <TabItem Header="Atletas">
-                <Grid>
+                <Grid Margin="25">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="500"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
+
+                    <Button Content="oi" Grid.Column="0"/>
+                    <Button Content="ola" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>
