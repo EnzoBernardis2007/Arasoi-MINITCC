@@ -18,20 +18,27 @@ namespace Arasoi_MINITCC.Tabs.Tournament
 {
     public partial class TournamentManagement : Window
     {
+        /* This class is just a basis for two other classes that modify 
+         * information in the database regarding tournaments */
+
         public TournamentManagement()
         {
             InitializeComponent();
         }
 
+        // Empty class to be overrided
         public virtual void Apply_Click(object sender, RoutedEventArgs e) { }
 
+        // Close the window
         public void Close_Click(object sender, RoutedEventArgs e)
         {
+            // Check if the user really wants to close the window
             MessageBoxResult messageBoxResult = MessageBox.Show("Certeza que quer descartar as alterações?", "Confirmação", MessageBoxButton.YesNo);
 
             if (messageBoxResult == MessageBoxResult.Yes) this.Close();
         }
 
+        // Check if all fields of the form are filled in (incomplete function)
         public bool Check()
         {
             return CodeTB.Text.Trim() != ""
@@ -44,6 +51,8 @@ namespace Arasoi_MINITCC.Tabs.Tournament
 
     public class AddTournament : TournamentManagement
     {
+        // This class add new tournaments
+        // Add a new tournament
         public override void Apply_Click(object sender, RoutedEventArgs e) 
         {
             if (Check())
@@ -70,11 +79,13 @@ namespace Arasoi_MINITCC.Tabs.Tournament
 
     public class EditTournament : TournamentManagement 
     {
+        // This class edits a tournament's information
 
         public EditTournament(string id, string name, string filiation, DateTime dateStart, DateTime dateEnd) 
         { 
-            CodeTB.IsReadOnly = false; 
+            CodeTB.IsReadOnly = true; 
 
+            // Show all the data from the selected tournament
             CodeTB.Text = id;
             NameTB.Text = name;
             FiliationTB.Text = filiation;
@@ -82,6 +93,7 @@ namespace Arasoi_MINITCC.Tabs.Tournament
             DataPickerEnd.SelectedDate = dateEnd;
         }
 
+        // Edit the data from the selectd tournament
         public override void Apply_Click(object sender, RoutedEventArgs e) 
         {
             if (Check()) 

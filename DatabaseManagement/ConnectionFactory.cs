@@ -11,6 +11,8 @@ namespace Arasoi_MINITCC.DatabaseManagement
 {
     internal class ConnectionFactory
     {
+        // This class create connections to the database
+
         static readonly string path = "Server=localhost;Database=arasoi;User Id=root;Password=";
         public static MySqlConnection GetConnection()
         {
@@ -21,7 +23,7 @@ namespace Arasoi_MINITCC.DatabaseManagement
             }
             catch (Exception ex) 
             {
-                MessageBox.Show($"Erro ao tentar criar conexão com o banco de dados: {ex.Message}", "Erro");
+                MessageBox.Show($"Erro ao tentar criar conexão com o banco de dados: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
         }

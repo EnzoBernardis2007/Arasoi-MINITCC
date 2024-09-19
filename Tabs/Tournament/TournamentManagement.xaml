@@ -16,7 +16,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
+            
+            <!-- Field of the form -->
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
                 <Label Content="Código do torneio:"/>
                 <TextBox x:Name="CodeTB" Text=""/>
@@ -33,6 +34,7 @@
                     <DatePicker x:Name="DataPickerEnd" Width="200"/>
                 </StackPanel>
             </StackPanel>
+            <!-- Buttons -->
             <Button Grid.Row="1" Grid.Column="0" Content="Aplicar" Margin="5" Click="Apply_Click"/>
             <Button Grid.Row="1" Grid.Column="1" Content="Sair" Margin="5" Click="Close_Click"/>
         </Grid>

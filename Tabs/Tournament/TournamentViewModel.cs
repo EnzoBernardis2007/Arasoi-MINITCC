@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO.Packaging;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace Arasoi_MINITCC.Tabs.Tournament
 {
     internal class TournamentViewModel : INotifyPropertyChanged
     {
+        // this class takes care of viewing the tournaments tab in the MainWindow
+
         private ObservableCollection<TournamentCard> _tournamentCards;
         public ObservableCollection<TournamentCard> TournamentCards
         {
@@ -27,7 +30,7 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                 if (_tournamentCards != value)
                 {
                     _tournamentCards = value;
-                    OnPropertyChanged(nameof(TournamentCards));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -37,6 +40,7 @@ namespace Arasoi_MINITCC.Tabs.Tournament
             LoadView();
         }
 
+        // Get data from the database and add that data to a collection of 'TournamentCard'
         public void LoadView()
         {
             TournamentCards = new ObservableCollection<TournamentCard>();
@@ -64,25 +68,24 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                             }
                         }
                     }
-
-                    MessageBox.Show("Receba!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Erro ao carregar os campeonatos: {ex}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Erro ao carregar os campeonatos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string name = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 
     public class TournamentCard
     {
+        // this class serves to serve as a base of information for the WPF, in the tournaments tab
         public string Id { get; set; }
         public string Name { get; set; }
         public string Filiation { get; set; }
@@ -104,6 +107,7 @@ namespace Arasoi_MINITCC.Tabs.Tournament
             EditCommand = new RelayCommand(Edit);
         }
 
+        // deletes a record in the database that has the same Id
         public void Delete()
         {
             using (MySqlConnection connection = ConnectionFactory.GetConnection()) 
@@ -117,6 +121,8 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                 commandDELETE.ExecuteNonQuery();
             }
         }
+
+        // Opens a window to edit the information for the respective record
         public void Edit()
         {
             EditTournament editTournament = new EditTournament(Id, Name, Filiation, DateStart, DateEnd);
