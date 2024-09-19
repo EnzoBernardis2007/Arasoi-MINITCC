@@ -21,6 +21,8 @@ namespace Arasoi_MINITCC
         public MainWindow()
         {
             InitializeComponent();
+            TournamentViewModel viewModel = new TournamentViewModel();
+            DataContext = viewModel;
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)

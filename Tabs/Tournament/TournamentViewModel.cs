@@ -20,6 +20,7 @@ namespace Arasoi_MINITCC.Tabs.Tournament
     internal class TournamentViewModel : INotifyPropertyChanged
     {
         // this class takes care of viewing the tournaments tab in the MainWindow
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private ObservableCollection<TournamentCard> _tournamentCards;
         public ObservableCollection<TournamentCard> TournamentCards
@@ -30,7 +31,7 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                 if (_tournamentCards != value)
                 {
                     _tournamentCards = value;
-                    OnPropertyChanged();
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TournamentCards)));
                 }
             }
         }
@@ -75,12 +76,6 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
     }
 
     public class TournamentCard
@@ -120,6 +115,8 @@ namespace Arasoi_MINITCC.Tabs.Tournament
 
                 commandDELETE.ExecuteNonQuery();
             }
+            var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
+            viewModel.LoadView();
         }
 
         // Opens a window to edit the information for the respective record

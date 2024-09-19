@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +74,8 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                     commandINSERT.ExecuteNonQuery();
                     MessageBox.Show("Registrado!");
                 }
+                var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
+                viewModel.LoadView();
             }
         }
     }
@@ -115,6 +118,8 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                     commandUPDATE.ExecuteNonQuery();
                     MessageBox.Show("Mudado!");
                 }
+                var viewModel = (TournamentViewModel)Application.Current.MainWindow.DataContext;
+                viewModel.LoadView();
             }
         }
     }
