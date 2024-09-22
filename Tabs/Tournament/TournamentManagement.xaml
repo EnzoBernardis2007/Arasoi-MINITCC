@@ -5,38 +5,125 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arasoi_MINITCC.Tabs.Tournament"
         mc:Ignorable="d"
-        Title="TournamentManagement" Height="600" Width="600" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid Margin="100, 100">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        Title="TournamentManagement" Height="600" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- Background style -->
+        <Style x:Key="Grid" TargetType="Grid">
+            <Setter Property="Background" Value="#333333"/>
+        </Style>
+        
+        <!-- Title style -->
+        <Style x:Key="Title" TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        
+        <!-- Grid style -->
+        <Style x:Key="RoundedBorderStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="100"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        
+        <!-- Field style -->
+        <Style TargetType="TextBox" x:Key="Field">
+            <Setter Property="Background" Value="#f0f0f0" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="Padding" Value="7" />
+            <Setter Property="BorderBrush" Value="#cccccc" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#007acc" />
+                    <Setter Property="Background" Value="#e6f7ff" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- DataPicker style -->
+        <Style TargetType="DatePicker" x:Key="SimpleStyledDatePicker">
+            <Setter Property="Background" Value="#f0f0f0" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="Padding" Value="7" />
+            <Setter Property="BorderBrush" Value="#cccccc" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
             
-            <!-- Field of the form -->
-            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                <Label Content="Código do torneio:"/>
-                <TextBox x:Name="CodeTB" Text=""/>
-                <Label Content="Nome do torneio:"/>
-                <TextBox x:Name="NameTB" Text=""/>
-                <Label Content="Filiação"/>
-                <TextBox x:Name="FiliationTB" Text=""/>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Data de inicio:" Width="200"/>
-                    <Label Content="Data de fim:" Width="200"/>
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                    <Setter Property="BorderBrush" Value="#007acc" />
+                    <Setter Property="Background" Value="#e6f7ff" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Button style -->
+        <Style TargetType="Button" x:Key="RoundedButtonStyle">
+            <Setter Property="Background" Value="#333333" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Style="{StaticResource Grid}">
+        <Border Style="{StaticResource RoundedBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            
+                <!-- Field's of the form -->
+                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Label Content="Adicionar campeonatos" Style="{StaticResource Title}"/>
+
+                    <Label Content="Código do torneio:"/>
+                    <TextBox x:Name="CodeTB" Text="" Style="{StaticResource Field}"/>
+
+                    <Label Content="Nome do torneio:"/>
+                    <TextBox x:Name="NameTB" Text="" Style="{StaticResource Field}"/>
+
+                    <Label Content="Filiação"/>
+                    <TextBox x:Name="FiliationTB" Text="" Style="{StaticResource Field}"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Data de inicio:" Width="200"/>
+                        <Label Content="Data de fim:" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <DatePicker x:Name="DataPickerStart" Width="180" Style="{StaticResource SimpleStyledDatePicker}"/>
+                        <DatePicker x:Name="DataPickerEnd" Width="180" Style="{StaticResource SimpleStyledDatePicker}"/>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <DatePicker x:Name="DataPickerStart" Width="200"/>
-                    <DatePicker x:Name="DataPickerEnd" Width="200"/>
-                </StackPanel>
-            </StackPanel>
-            <!-- Buttons -->
-            <Button Grid.Row="1" Grid.Column="0" Content="Aplicar" Margin="5" Click="Apply_Click"/>
-            <Button Grid.Row="1" Grid.Column="1" Content="Sair" Margin="5" Click="Close_Click"/>
-        </Grid>
+                <!-- Buttons -->
+                <Button Grid.Row="1" Grid.Column="0" Content="Aplicar" Margin="5" Click="Apply_Click" Style="{StaticResource RoundedButtonStyle}"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="Fechar" Margin="5" Click="Close_Click" Style="{StaticResource RoundedButtonStyle}"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

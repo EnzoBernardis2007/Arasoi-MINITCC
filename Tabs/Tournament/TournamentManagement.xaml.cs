@@ -42,9 +42,9 @@ namespace Arasoi_MINITCC.Tabs.Tournament
         // Check if all fields of the form are filled in (incomplete function)
         public bool Check()
         {
-            return string.IsNullOrWhiteSpace(CodeTB.Text)
-                && string.IsNullOrWhiteSpace(NameTB.Text)
-                && string.IsNullOrWhiteSpace(FiliationTB.Text)
+            return !string.IsNullOrWhiteSpace(CodeTB.Text)
+                && !string.IsNullOrWhiteSpace(NameTB.Text)
+                && !string.IsNullOrWhiteSpace(FiliationTB.Text)
                 && DataPickerStart.SelectedDate.HasValue
                 && DataPickerEnd.SelectedDate.HasValue;
         }

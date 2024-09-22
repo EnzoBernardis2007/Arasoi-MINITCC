@@ -107,6 +107,10 @@ namespace Arasoi_MINITCC.Tabs.Tournament
         {
             try
             {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Tem certeza que quer deletar?", "Confirmação", MessageBoxButton.YesNo);
+
+                if (messageBoxResult == MessageBoxResult.No) return;
+
                 using (MySqlConnection connection = ConnectionFactory.GetConnection())
                 {
                     connection.Open();
