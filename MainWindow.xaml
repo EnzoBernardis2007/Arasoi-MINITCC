@@ -6,10 +6,7 @@
         xmlns:local="clr-namespace:Arasoi_MINITCC.Tabs.Tournament"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1350" WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <local:TournamentViewModel />
-    </Window.DataContext>
-    
+
     <Window.Resources>
         <!-- Tab style -->
         <Style TargetType="TabItem" x:Key="StyledTabItem">
@@ -52,7 +49,8 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
+        <!-- Tab tournament -->
         <!-- Button style -->
         <Style TargetType="Button" x:Key="StyledButton">
             <Setter Property="BorderThickness" Value="0"/>
@@ -68,15 +66,81 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!-- Tab athlete -->
+        <!-- Label -->
+        <Style TargetType="Label" x:Key="StyleLabelAthlete">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <!-- Field -->
+        <Style TargetType="TextBox" x:Key="StyleFieldAthlete">
+            <Setter Property="Background" Value="#f0f0f0" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="Padding" Value="7" />
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="BorderBrush" Value="#cccccc" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#007acc" />
+                    <Setter Property="Background" Value="#e6f7ff" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="StyleButtonAthlete">
+            <Setter Property="Background" Value="#0fbab7"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#3e3932"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="2"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                        Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e2e3a9"/>
+                                <Setter Property="BorderBrush" Value="#f1d989"/>
+                                <Setter Property="Foreground" Value="#000c0c"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#3e3932"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
-        <TabControl>
+        <TabControl x:Name="MyTabControl" SelectionChanged="TabControl_SelectionChanged">
             <!-- Tab to manage tournaments -->
             <TabItem Header="Campeonatos" Style="{StaticResource StyledTabItem}">
                 <Grid>
-                    <ListBox Margin="100,50,100,50" ItemsSource="{Binding TournamentCards}" Grid.ColumnSpan="2">
-                        
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Margin="100,50,100,50" ItemsSource="{Binding TournamentCards}">
+
                         <ListBox.Style>
                             <Style TargetType="ListBox">
                                 <Setter Property="BorderBrush" Value="Gray"/>
@@ -93,13 +157,13 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="150"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <!-- Data of the tournament -->
                                         <StackPanel Grid.Column="0">
                                             <Label Content="{Binding Name}" FontSize="24" FontWeight="Bold" Foreground="Black" Margin="5,0,0,0"/>
                                             <Label Content="{Binding Filiation}" FontSize="16" Foreground="Gray" Margin="5,0,0,0"/>
                                         </StackPanel>
-                                        
+
                                         <!-- Buttons -->
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
                                             <Button Content="Editar" Command="{Binding EditCommand}" Style="{StaticResource StyledButton}"/>
@@ -115,15 +179,88 @@
                 </Grid>
             </TabItem>
             <!-- Tab to add athlete -->
-            <TabItem Header="Atletas" Style="{StaticResource StyledTabItem}">
+            <TabItem Header="Atletas" Style="{StaticResource StyledTabItem}" Height="29" VerticalAlignment="Bottom">
                 <Grid Margin="25">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Content="oi" Grid.Column="0"/>
-                    <Button Content="ola" Grid.Column="1"/>
+                    <!-- ListBox to show all registered athletes -->
+                    <ListBox Grid.Column="0" ItemsSource="{Binding AthleteCard}">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="Background" Value="White"/>
+                            </Style>
+                        </ListBox.Style>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5" Padding="10" Background="WhiteSmoke">
+                                    <Grid>
+                                        <!-- Data of the athelete -->
+                                        <Label Content="{Binding Name}" FontSize="24" FontWeight="Bold" Foreground="Black" Margin="5,0,0,0"/>
+                                        <Label Content="{Binding CPF}" FontSize="16" Foreground="Gray" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!-- Field's of the form -->
+                    <Grid Grid.Column="1" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Adicionar/editar atletas" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"/>
+
+                        <Label Content="CPF:" Grid.Column="0" Grid.Row="1" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="0" Grid.Row="2" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Código do torneio:" Grid.Column="1" Grid.Row="1" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="1" Grid.Row="2" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Nome completo:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Idade:" Grid.Column="0" Grid.Row="5" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="0" Grid.Row="6" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Altura:" Grid.Column="1" Grid.Row="5" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="1" Grid.Row="6" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Kyu:" Grid.Column="0" Grid.Row="7" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="0" Grid.Row="8" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Dan:" Grid.Column="1" Grid.Row="7" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="1" Grid.Row="8" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Dojo:" Grid.Column="0" Grid.Row="9" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="0" Grid.Row="10" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Label Content="Cidade:" Grid.Column="1" Grid.Row="9" Style="{StaticResource StyleLabelAthlete}"/>
+                        <TextBox Text="" Grid.Column="1" Grid.Row="10" Style="{StaticResource StyleFieldAthlete}"/>
+
+                        <Button Content="Confirmar" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="11" Style="{StaticResource StyleButtonAthlete}"/>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

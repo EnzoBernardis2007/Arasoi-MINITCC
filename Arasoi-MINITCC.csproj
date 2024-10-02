@@ -109,6 +109,7 @@
     </ApplicationDefinition>
     <Compile Include="DatabaseManagement\ConnectionFactory.cs" />
     <Compile Include="Prefab\RelayCommand.cs" />
+    <Compile Include="Tabs\Athlete\AthleteViewModel.cs" />
     <Compile Include="Tabs\Tournament\TournamentManagement.xaml.cs">
       <DependentUpon>TournamentManagement.xaml</DependentUpon>
     </Compile>

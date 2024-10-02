@@ -1,4 +1,5 @@
-﻿using Arasoi_MINITCC.Tabs.Tournament;
+﻿using Arasoi_MINITCC.Tabs.Athlete;
+using Arasoi_MINITCC.Tabs.Tournament;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,28 @@ namespace Arasoi_MINITCC
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new TournamentViewModel();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             AddTournament addTournament = new AddTournament();
             addTournament.Show();
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MyTabControl.SelectedItem is TabItem selectedTab)
+            {
+                switch (selectedTab.Header.ToString())
+                {
+                    case "Campeonatos":
+                        this.DataContext = new TournamentViewModel(); 
+                        break;
+                    case "Atletas":
+                        this.DataContext = new AthleteViewModel();
+                        break;
+                }
+            }
         }
     }
 }
