@@ -48,4 +48,9 @@ C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\System.Runtime.CompilerServ
 C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Tabs\Tournament\TournamentManagement.baml
 C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Arasoi-M.A98ACC87.Up2Date
-C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Tabs\Athlete\AthleteManagement.g.cs
+C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Tabs\Athlete\AthleteManagement.baml
+C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Prefab\LockScreen.g.cs
+C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Prefab\LockScreen.baml
+C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\Newtonsoft.Json.dll
+C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\Newtonsoft.Json.xml

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\berna\source\repos\Arasoi-MINITCC\App.xaml
-21415777326
+42045471150
 
-112014104483
-33-2136539882
-MainWindow.xaml;Tabs\Tournament\TournamentManagement.xaml;
+141014611144
+3483742129
+MainWindow.xaml;Prefab\LockScreen.xaml;Tabs\Athlete\AthleteManagement.xaml;Tabs\Tournament\TournamentManagement.xaml;
 
-True
+False
 

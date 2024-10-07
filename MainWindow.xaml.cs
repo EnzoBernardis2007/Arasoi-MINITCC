@@ -1,5 +1,9 @@
-﻿using Arasoi_MINITCC.Tabs.Athlete;
+﻿using Arasoi_MINITCC.Prefab;
+using Arasoi_MINITCC.Tabs.Athlete;
 using Arasoi_MINITCC.Tabs.Tournament;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +26,15 @@ namespace Arasoi_MINITCC
         public MainWindow()
         {
             InitializeComponent();
+            string filePath = "C:\\Users\\berna\\source\\repos\\Arasoi-MINITCC\\JSON\\Credentials.json";
+            Credential credentials = JSONmanagement.LoadCredentials(filePath);
+
+            if (credentials.Entered == false)
+            {
+                LockScreen lockScreen = new LockScreen();
+                lockScreen.Show();
+                this.Hide();
+            }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -40,10 +53,20 @@ namespace Arasoi_MINITCC
                         this.DataContext = new TournamentViewModel(); 
                         break;
                     case "Atletas":
-                        this.DataContext = new AthleteViewModel();
+
                         break;
                 }
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string filePath = "C:\\Users\\berna\\source\\repos\\Arasoi-MINITCC\\JSON\\Credentials.json";
+            string jsonContent = File.ReadAllText(filePath);
+            JObject jsonObject = JObject.Parse(jsonContent);
+            jsonObject["Entered"] = false;
+            string updatedJsonContent = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+            File.WriteAllText(filePath, updatedJsonContent);
         }
     }
 }
