@@ -135,7 +135,7 @@
     <Grid>
         <TabControl x:Name="MyTabControl" SelectionChanged="TabControl_SelectionChanged">
             <!-- Tab to manage tournaments -->
-            <TabItem Header="Campeonatos" Style="{StaticResource StyledTabItem}">
+            <TabItem Header="Campeonatos" Name="TournamentTab" Style="{StaticResource StyledTabItem}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -176,14 +176,14 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Content="+" Click="Add_Click" Margin="1190,597,54,35"/>
+                    <Button Content="+" Click="AddTournament_Click" Margin="1190,597,54,35"/>
                 </Grid>
             </TabItem>
             <!-- Tab to add athlete -->
-            <TabItem Header="Atletas" Style="{StaticResource StyledTabItem}" Height="29" VerticalAlignment="Bottom">
+            <TabItem Header="Atletas" Name="AthleteTab" Style="{StaticResource StyledTabItem}" Height="29" VerticalAlignment="Bottom">
                 <Grid>
 
-                    <!-- ListBox to show all registered athletes -->
+                    <!-- to show all registered athletes -->
                     <ListBox Margin="100,50,100,50" ItemsSource="{Binding AthleteCards}">
 
                         <ListBox.Style>
@@ -203,9 +203,9 @@
                                             <ColumnDefinition Width="150"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- Data of the tournament -->
+                                        <!-- of the tournament -->
                                         <StackPanel Grid.Column="0">
-                                            <Label Content="{Binding Name}" FontSize="24" FontWeight="Bold" Foreground="Black" Margin="5,0,0,0"/>
+                                            <Label Content="{Binding AthleteName}" FontSize="24" FontWeight="Bold" Foreground="Black" Margin="5,0,0,0"/>
                                             <Label Content="{Binding CPF}" FontSize="16" Foreground="Gray" Margin="5,0,0,0"/>
                                         </StackPanel>
 
@@ -219,6 +219,8 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                    
+                    <Button Content="+" Click="AddAthlete_Click" Margin="1190,597,54,35"/>
                 </Grid>
             </TabItem>
         </TabControl>

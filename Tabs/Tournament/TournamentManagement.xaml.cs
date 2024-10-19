@@ -62,7 +62,6 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                 {
                     using (MySqlConnection connection = ConnectionFactory.GetConnection())
                     {
-                        connection.Open();
                         string command = "INSERT INTO campeonato (cod_campeonato, nome_campeonato, filiacao, data_inicio, data_fim) " +
                             "VALUES (@cod_campeonato, @nome_campeonato, @filiacao, @data_inicio, @data_fim)";
                         MySqlCommand commandINSERT = new MySqlCommand(command, connection);
@@ -115,7 +114,6 @@ namespace Arasoi_MINITCC.Tabs.Tournament
                 {
                     using (MySqlConnection connection = ConnectionFactory.GetConnection())
                     {
-                        connection.Open();
                         string command = "UPDATE campeonato " +
                             "SET nome_campeonato = @nome_campeonato, filiacao = @filiacao, data_inicio = @data_inicio, data_fim = @data_fim " +
                             "WHERE cod_campeonato = @cod_campeonato";

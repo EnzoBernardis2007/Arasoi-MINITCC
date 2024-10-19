@@ -12,13 +12,13 @@ namespace Arasoi_MINITCC.DatabaseManagement
     internal class ConnectionFactory
     {
         // This class create connections to the database
-
-        static readonly string path = "Server=localhost;Database=arasoi;User Id=root;Password=";
+        static readonly string path = "Server=localhost;Database=arasoi_minitcc;User Id=root;Password=;";
         public static MySqlConnection GetConnection()
         {
             try
             {
                 MySqlConnection connection = new MySqlConnection(path);
+                connection.Open();
                 return connection;
             }
             catch (Exception ex) 

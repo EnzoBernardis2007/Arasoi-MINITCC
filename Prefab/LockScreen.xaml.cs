@@ -23,14 +23,17 @@ namespace Arasoi_MINITCC.Prefab
     public partial class LockScreen : Window
     {
         private string Password { get; set; }
+        private MainWindow MainWindow { get; set; }
 
-        public LockScreen()
+        public LockScreen(MainWindow mainWindow)
         {
             InitializeComponent();
+
             string filePath = "C:\\Users\\berna\\source\\repos\\Arasoi-MINITCC\\JSON\\Credentials.json";
             Credential credentials = JSONmanagement.LoadCredentials(filePath);
 
             Password = credentials != null ? credentials.Password : null;
+            MainWindow = mainWindow;
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
@@ -44,8 +47,7 @@ namespace Arasoi_MINITCC.Prefab
                 string updatedJsonContent = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
                 File.WriteAllText(filePath, updatedJsonContent);
 
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                MainWindow.Show();
                 this.Close();
             }
             else MessageBox.Show("Senha errada.", "Erro");

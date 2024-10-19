@@ -26,34 +26,44 @@ namespace Arasoi_MINITCC
         public MainWindow()
         {
             InitializeComponent();
+
             string filePath = "C:\\Users\\berna\\source\\repos\\Arasoi-MINITCC\\JSON\\Credentials.json";
             Credential credentials = JSONmanagement.LoadCredentials(filePath);
 
             if (credentials.Entered == false)
             {
-                LockScreen lockScreen = new LockScreen();
+                LockScreen lockScreen = new LockScreen(this);
                 lockScreen.Show();
                 this.Hide();
             }
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private void AddAthlete_Click(object sender, RoutedEventArgs e)
+        {
+            AddAthlete addAthlete = new AddAthlete();
+            addAthlete.Show();
+        }
+
+        private void AddTournament_Click(object sender, RoutedEventArgs e)
         {
             AddTournament addTournament = new AddTournament();
             addTournament.Show();
         }
 
+        private TournamentViewModel tournamentViewModel = new TournamentViewModel();
+        private AthleteViewModel athleteViewModel = new AthleteViewModel();
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MyTabControl.SelectedItem is TabItem selectedTab)
             {
-                switch (selectedTab.Header.ToString())
+                switch (selectedTab.Name)
                 {
-                    case "Campeonatos":
-                        this.DataContext = new TournamentViewModel(); 
+                    case "TournamentTab":
+                        this.DataContext = tournamentViewModel;
                         break;
-                    case "Atletas":
-
+                    case "AthleteTab":
+                        this.DataContext = athleteViewModel;
                         break;
                 }
             }

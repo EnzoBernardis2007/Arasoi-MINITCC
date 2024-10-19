@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Arasoi_MINITCC.Tabs.Tournament
 {
@@ -50,7 +51,6 @@ namespace Arasoi_MINITCC.Tabs.Tournament
             {
                 try
                 {
-                    connection.Open();
                     string command = "SELECT * FROM campeonato";
                     
                     using (MySqlCommand commandSELECT = new MySqlCommand(command, connection))
@@ -113,7 +113,6 @@ namespace Arasoi_MINITCC.Tabs.Tournament
 
                 using (MySqlConnection connection = ConnectionFactory.GetConnection())
                 {
-                    connection.Open();
                     string command = "DELETE FROM campeonato WHERE cod_campeonato = @cod_campeonato";
                     MySqlCommand commandDELETE = new MySqlCommand(command, connection);
 
