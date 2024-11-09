@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CpfLibrary;
 
 namespace Arasoi_MINITCC.Tabs.Athlete
 {
@@ -72,8 +73,7 @@ namespace Arasoi_MINITCC.Tabs.Athlete
         // Check if all fields of the form are filled in (incomplete function)
         public bool Check()
         {
-
-            return !string.IsNullOrWhiteSpace(CPFTB.Text)
+            return Cpf.Check(Cpf.Format(CPFTB.Text))
                 && !string.IsNullOrWhiteSpace(NameTB.Text)
                 && !string.IsNullOrWhiteSpace(AgeTB.Text)
                 && !string.IsNullOrWhiteSpace(HeightTB.Text)
@@ -171,7 +171,7 @@ namespace Arasoi_MINITCC.Tabs.Athlete
                         commandUPDATE.Parameters.AddWithValue("@dan", Convert.ToInt32(DanTB.Text));
                         commandUPDATE.Parameters.AddWithValue("@dojo", DojoTB.Text);
                         commandUPDATE.Parameters.AddWithValue("@cidade", CityTB.Text);
-                        commandUPDATE.Parameters.AddWithValue("cod_campeonato", selectedTournamentId.Content.ToString());
+                        commandUPDATE.Parameters.AddWithValue("cod_campeonato", Convert.ToInt32(selectedTournamentId.Tag));
 
                         commandUPDATE.ExecuteNonQuery();
                         MessageBox.Show("Mudado!");

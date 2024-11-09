@@ -1,0 +1,59 @@
+﻿<Window x:Class="Arasoi_MINITCC.Windows.CategoryManagement.CategoryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arasoi_MINITCC.Windows.CategoryManagement"
+        mc:Ignorable="d"
+        Title="CategoryView" Height="720" Width="1350">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Nome da categoria:"/>
+            <TextBox Grid.Row="1"/>
+            <Label Grid.Row="2" Content="Atletas que estão nessa categoria:"/>
+            <ComboBox Grid.Row="3" />
+            <Label Grid.Row="4" Content="Koto:"/>
+            <TextBox Grid.Row="5"/>
+            <Button Grid.Row="6" Content="+" Click="AddCategory_Click"/>
+        </Grid>
+
+        <ListBox Grid.Column="1" ItemsSource="{Binding CategoryModel}">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="1100" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5" Padding="10" Background="WhiteSmoke">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Data of the tournament -->
+                            <StackPanel Grid.Column="0">
+                                <Label Content="{Binding Name}" FontSize="24" FontWeight="Bold" Foreground="Black" Margin="5,0,0,0"/>
+                                <Label Content="{Binding Id}" FontSize="16" Foreground="Gray" Margin="5,0,0,0"/>
+                            </StackPanel>
+
+                            <!-- Buttons -->
+                            <Button Content="Deletar" Command="{Binding DeleteCommand}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

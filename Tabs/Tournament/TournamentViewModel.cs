@@ -1,5 +1,6 @@
 ﻿using Arasoi_MINITCC.DatabaseManagement;
 using Arasoi_MINITCC.Prefab;
+using Arasoi_MINITCC.Windows.CategoryManagement;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Security;
 using System;
@@ -89,6 +90,7 @@ namespace Arasoi_MINITCC.Tabs.Tournament
 
         public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand CreateCommand { get; set; }
 
         public TournamentCard(string id, string name, string filiation, DateTime dateStart, DateTime dateEnd)
         {
@@ -134,6 +136,12 @@ namespace Arasoi_MINITCC.Tabs.Tournament
         {
             EditTournament editTournament = new EditTournament(Id, Name, Filiation, DateStart, DateEnd);
             editTournament.Show();
+        }
+
+        public void Create()
+        {
+            CategoryView categoryWindow = new CategoryView();
+            categoryWindow.Show();
         }
     }
 }

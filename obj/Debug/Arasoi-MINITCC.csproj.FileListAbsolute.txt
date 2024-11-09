@@ -54,3 +54,8 @@ C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Prefab\LockScreen.g.cs
 C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Prefab\LockScreen.baml
 C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\Newtonsoft.Json.dll
 C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\Newtonsoft.Json.xml
+C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\Cpf.dll
+C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\Cpf.pdb
+C:\Users\berna\source\repos\Arasoi-MINITCC\bin\Debug\Cpf.xml
+C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Windows\CategoryManagement\CategoryView.g.cs
+C:\Users\berna\source\repos\Arasoi-MINITCC\obj\Debug\Windows\CategoryManagement\CategoryView.baml

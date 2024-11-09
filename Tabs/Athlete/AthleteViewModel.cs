@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using CpfLibrary;
 
 namespace Arasoi_MINITCC.Tabs.Athlete
 {
@@ -59,7 +60,7 @@ namespace Arasoi_MINITCC.Tabs.Athlete
                         {
                             while (reader.Read())
                             {
-                                string cpf = reader["CPF"].ToString();
+                                string cpf = Cpf.Format(reader["CPF"].ToString());
                                 string name = reader["nome_atleta"].ToString();
                                 double height = Convert.ToDouble(reader["altura"]);
                                 int age = Convert.ToInt32(reader["idade"]);
@@ -106,6 +107,7 @@ namespace Arasoi_MINITCC.Tabs.Athlete
             Age = age;
             Kyu = kyu;
             Dan = dan;
+            Dojo = dojo;
             City = city;
             IdTournament = idTournament;
 

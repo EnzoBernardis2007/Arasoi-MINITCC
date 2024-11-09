@@ -140,41 +140,37 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ListBox Margin="100,50,100,50" ItemsSource="{Binding TournamentCards}">
-
-                        <ListBox.Style>
-                            <Style TargetType="ListBox">
+                    <DataGrid Margin="100,50,100,50" ItemsSource="{Binding TournamentCards}" AutoGenerateColumns="False" IsReadOnly="False">
+                        <DataGrid.Style>
+                            <Style TargetType="DataGrid">
                                 <Setter Property="BorderBrush" Value="Gray"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                                 <Setter Property="Background" Value="White"/>
                             </Style>
-                        </ListBox.Style>
+                        </DataGrid.Style>
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Width="1100" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5" Padding="10" Background="WhiteSmoke">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="150"/>
-                                        </Grid.ColumnDefinitions>
+                        <!-- Definindo as colunas do DataGrid -->
+                        <DataGrid.Columns>
+                            <!-- Coluna de nome do torneio -->
+                            <DataGridTextColumn Header="Nome" Binding="{Binding Name}" Width="2*" FontSize="16" FontWeight="Bold" Foreground="Black"/>
 
-                                        <!-- Data of the tournament -->
-                                        <StackPanel Grid.Column="0">
-                                            <Label Content="{Binding Name}" FontSize="24" FontWeight="Bold" Foreground="Black" Margin="5,0,0,0"/>
-                                            <Label Content="{Binding Filiation}" FontSize="16" Foreground="Gray" Margin="5,0,0,0"/>
+                            <!-- Coluna de filiação -->
+                            <DataGridTextColumn Header="Filição" Binding="{Binding Filiation}" Width="*" FontSize="14" Foreground="Gray"/>
+
+                            <!-- Coluna de Botões (Editar e Deletar) -->
+                            <DataGridTemplateColumn Header="Ações" Width="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Button Content="Editar" Command="{Binding EditCommand}" Style="{StaticResource StyledButton}" Margin="5,0,0,0"/>
+                                            <Button Content="Deletar" Command="{Binding DeleteCommand}" Style="{StaticResource StyledButton}" Margin="5,0,0,0"/>
                                         </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                                        <!-- Buttons -->
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                                            <Button Content="Editar" Command="{Binding EditCommand}" Style="{StaticResource StyledButton}"/>
-                                            <Button Content="Deletar" Command="{Binding DeleteCommand}" Style="{StaticResource StyledButton}"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
 
                     <Button Content="+" Click="AddTournament_Click" Margin="1190,597,54,35"/>
                 </Grid>
@@ -184,42 +180,38 @@
                 <Grid>
 
                     <!-- to show all registered athletes -->
-                    <ListBox Margin="100,50,100,50" ItemsSource="{Binding AthleteCards}">
-
-                        <ListBox.Style>
-                            <Style TargetType="ListBox">
+                    <DataGrid Margin="100,50,100,50" ItemsSource="{Binding AthleteCards}" AutoGenerateColumns="False" IsReadOnly="False">
+                        <DataGrid.Style>
+                            <Style TargetType="DataGrid">
                                 <Setter Property="BorderBrush" Value="Gray"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                                 <Setter Property="Background" Value="White"/>
                             </Style>
-                        </ListBox.Style>
+                        </DataGrid.Style>
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Width="1100" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5" Padding="10" Background="WhiteSmoke">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="150"/>
-                                        </Grid.ColumnDefinitions>
+                        <!-- Definindo as colunas do DataGrid -->
+                        <DataGrid.Columns>
+                            <!-- Coluna de nome do atleta -->
+                            <DataGridTextColumn Header="Nome" Binding="{Binding AthleteName}" Width="*" FontSize="16" FontWeight="Bold" Foreground="Black"/>
 
-                                        <!-- of the tournament -->
-                                        <StackPanel Grid.Column="0">
-                                            <Label Content="{Binding AthleteName}" FontSize="24" FontWeight="Bold" Foreground="Black" Margin="5,0,0,0"/>
-                                            <Label Content="{Binding CPF}" FontSize="16" Foreground="Gray" Margin="5,0,0,0"/>
+                            <!-- Coluna de CPF -->
+                            <DataGridTextColumn Header="CPF" Binding="{Binding CPF}" Width="*" FontSize="14" Foreground="Gray"/>
+
+                            <!-- Coluna de Botões (Editar e Deletar) -->
+                            <DataGridTemplateColumn Header="Ações" Width="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Button Content="Editar" Command="{Binding EditCommand}" Style="{StaticResource StyledButton}" Margin="5,0,0,0"/>
+                                            <Button Content="Deletar" Command="{Binding DeleteCommand}" Style="{StaticResource StyledButton}" Margin="5,0,0,0"/>
                                         </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                                        <!-- Buttons -->
-                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                                            <Button Content="Editar" Command="{Binding EditCommand}" Style="{StaticResource StyledButton}"/>
-                                            <Button Content="Deletar" Command="{Binding DeleteCommand}" Style="{StaticResource StyledButton}"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    
+
                     <Button Content="+" Click="AddAthlete_Click" Margin="1190,597,54,35"/>
                 </Grid>
             </TabItem>
